@@ -18,6 +18,7 @@
 
 ## Instance format:
 N
+
 i X Y
 
 Where N is the number of the graph vertices and for i=1,...,N there are a X and Y integer coordinates for each vertice.
