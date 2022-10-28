@@ -42,7 +42,8 @@ class GeneticAlgorithmTSP:
             population.sort(key=self.calc_distance)
 
             if i % 100 == 0:
-                print("Generation " + str(i))
+                'print("Generation " + str(i))'
+                'print(best_tour_list)'
                 tempodl = self.calc_distance(population[0])
                 fkcja_celu_list.append(tempodl)
                 generations_completed = i
@@ -50,7 +51,10 @@ class GeneticAlgorithmTSP:
             if self.calc_distance(population[0]) < bestSoFar:
                 bestSoFar = self.calc_distance(population[0])
                 best_tour_list = population[0]
+                print("Generation " + str(i))
+                print(best_tour_list)
                 print(bestSoFar)
+                print("_____________________________")
                 stop_counter = 0
             else:
                 stop_counter += 1
@@ -372,12 +376,14 @@ def simple_plot(lista, instance_name, tourlist):
     ax.scatter(temp_listx[1], temp_listy[1], s=10, c='red')
 
     ax.set_title("Best founded route for the " + str(instance_name).replace('.txt', '').replace('instances/','')+" instance.")
+    print(tourlist)
     plt.show()
+
 
 
 def main():
     folder ="instances/"
-    instance_name = folder+"berlin52.txt"
+    instance_name = folder+"tsp24.txt"
     w = GeneticAlgorithmTSP(instance_name)
 
     #Tuning parameters
@@ -395,6 +401,7 @@ def main():
                                                                     mutation_rate,
                                                                     greedyatstart, endafter)
     # Plot drawing + bonus for most common instance
+
     simple_plot(lista, instance_name, tourlist)
 
 
