@@ -3,7 +3,7 @@ import math
 import random
 import time
 import matplotlib.pyplot as plt
-
+import datetime
 
 class GeneticAlgorithmTSP:
     def __init__(self, file):
@@ -65,11 +65,7 @@ class GeneticAlgorithmTSP:
                 print('The stop condition has terminated the metaherustics.')
                 return bestSoFar, fkcja_celu_list, generations_completed, best_tour_list
 
-            # Special condition: Optimum score (for chosen instances only).
-            if (self.file == "instances/berlin52.txt") and (bestSoFar <= 7545):
-                return bestSoFar, fkcja_celu_list, generations_completed, best_tour_list
-            if (self.file == "instances/bier127.txt") and (bestSoFar <= 118283):
-                return bestSoFar, fkcja_celu_list, generations_completed, best_tour_list
+
 
         return bestSoFar, fkcja_celu_list, generations_completed, best_tour_list
 
@@ -336,30 +332,11 @@ class GeneticAlgorithmTSP:
             tour = random.randrange(1, len(population))
             self.mutate(population[tour])
 
-
+start_time = datetime.datetime.now()
 def simple_plot(lista, instance_name, tourlist):
     length = len(lista)
 
-    if instance_name == 'instances/berlin52.txt' or instance_name == 'instances/bier127.txt':
 
-        if instance_name == 'instances/berlin52.txt':
-            opt_score = [7544.36] * (length)
-        elif instance_name == 'instances/bier127.txt':
-            opt_score = [118282] * (length)
-        else:
-            opt_score = [100] * (
-                length)
-
-        listax = list(range(0, length * 100, 100))
-        plt.plot(listax, lista, 'b')
-        plt.plot(listax, opt_score, 'g')
-        plt.ylabel('Target function')
-        plt.xlabel('Generation number')
-        plt.legend(["Genetic algorithm score", "Optimal instance score"])
-        plt.title('Change of the target function for an instance ' + instance_name.replace('.txt', '').replace('instances/',''))
-        plt.show()
-    else:
-        print('For other instances, we only display the route on the chart.')
 
     fig, ax = plt.subplots()
     last = len(tourlist) - 1
@@ -375,6 +352,10 @@ def simple_plot(lista, instance_name, tourlist):
     ax.scatter(temp_listx[0], temp_listy[0], s=10, c='red')
     ax.scatter(temp_listx[1], temp_listy[1], s=10, c='red')
 
+
+    end_time=datetime.datetime.now()- start_time;
+    print("--- %s seconds ---" % (end_time.total_seconds()))
+
     ax.set_title("Best founded route for the " + str(instance_name).replace('.txt', '').replace('instances/','')+" instance.")
     print(tourlist)
     plt.show()
@@ -383,12 +364,12 @@ def simple_plot(lista, instance_name, tourlist):
 
 def main():
     folder ="instances/"
-    instance_name = folder+"tsp24.txt"
+    instance_name = folder+"test8.txt"
     w = GeneticAlgorithmTSP(instance_name)
 
     #Tuning parameters
     generations_number = 10001
-    population_size = 33
+    population_size = 20
     elite_rate = 0.3  # values between <0;1>
     mutation_rate = 0.80  # values between  <0;1>
     greedyatstart = 1  # 0 if you dont want to have any greedy solution at the start.
